@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prueba API</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h2>Enviar formulario</h2>
+
+<input id="nombre" placeholder="Nombre"><br><br>
+<input id="email" placeholder="Email"><br><br>
+<input id="asunto" placeholder="Asunto"><br><br>
+<textarea id="mensaje" placeholder="Mensaje"></textarea><br><br>
+
+<button onclick="enviar()">Enviar</button>
+
+<script>
+async function enviar() {
+
+    const datos = {
+        nombre: document.getElementById("nombre").value,
+        email: document.getElementById("email").value,
+        asunto: document.getElementById("asunto").value,
+        mensaje: document.getElementById("mensaje").value
+    };
+
+    const respuesta = await fetch("http://127.0.0.1:5000/formularios", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(datos)
+    });
+
+    const resultado = await respuesta.json();
+
+    alert(JSON.stringify(resultado, null, 2));
+}
+</script>
+
+</body>
+</html>
